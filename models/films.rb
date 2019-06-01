@@ -1,4 +1,6 @@
 require_relative("../db/sql_runner.rb")
+require_relative("customers.rb")
+require_relative("tickets.rb")
 
 class Films
   attr_accessor :title, :price
@@ -47,5 +49,20 @@ class Films
       values = [@title, @price, @id]
       SqlRunner.run( sql, values )
   end
+
+  #Show customers that have viwed a film.
+  def customers()
+    sql = "SELECT customers.* FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id WHERE film_id = $1"
+    values = [@id]
+    customers = SqlRunner.run( sql, values)
+    return customers.map { | customer | Customers.new( customer )}
+  end
+
+  # def films()
+  #   sql = "SELECT films.* FROM films INNER JOIN tickets ON tickets.film_id = films.id WHERE customer_id = $1"
+  #   values = [@id]
+  #   films = SqlRunner.run( sql, values)
+  #   return films.map { | film | Films.new( film )}
+  # end
 
 end
