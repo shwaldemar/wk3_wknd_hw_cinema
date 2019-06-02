@@ -1,7 +1,7 @@
 require_relative("../db/sql_runner.rb")
 class Tickets
 
-  attr_reader :customer_id, :film_id
+  attr_accessor :customer_id, :film_id
 
   def initialize(options)
     @customer_id = options["customer_id"]
@@ -35,16 +35,15 @@ class Tickets
   end
 
   def update()
-    sql = "UPDATE tickets set (
+    sql = "UPDATE tickets SET (
     customer_id,
     film_id
     ) = (
       $1, $2
       )
-      WHERE is = $3"
+      WHERE id = $3"
       values = [@customer_id, @film_id, @id]
       SqlRunner.run( sql, values )
   end
-
 
 end

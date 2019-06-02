@@ -67,5 +67,9 @@ films2.update()
 customers2.name = "The Borg Queen"
 customers2.update()
 
+tickets16.film_id = films1.id
+tickets16.update()
+
+
 binding.pry
 nil
